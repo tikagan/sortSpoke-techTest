@@ -1,3 +1,48 @@
-h1 {
-  color: tomato;
+html,body {
+  margin: 0;
+}
+
+#sort-spoke {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: tomato;
+  flex-direction: column;
+
+  #actions-list, #workflow {
+    display: flex;
+    width: 45%;
+    height: 100%;
+  }
+
+  #actions-list{
+    background-color: olive;
+  }
+
+  #workflow {
+    background-color: cornflowerblue;
+  }
+
+  #controller-container {
+    display: flex;
+    width: 100%;
+    height: 5em;
+    background-color: grey;
+  }
+
+  nav {
+    width: 100%;
+    display: flex;
+    height: 5em;
+    background-color: magenta;
+  }
+
+  main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
 }
