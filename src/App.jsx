@@ -4,53 +4,50 @@ import ActionsList from './ActionsList.jsx'
 
 class App extends Component {
   constructor(props) {
-    //pass the props to the react.component (the parent class of this component)
     super(props);
-    //set up the default state for the application
     this.state = {
-      'Actions':  [
+      'actions':  [
             'Import',
             'Export',
             'Sort',
             'Extract',
             'Split'
           ],
-      'Workflow': {
+      'workflow': {
             '_id': 'bU4rMI7fEeeqxlvy4NOyyA==',
-          	'ProjectId': 'bOd74o7fEeeqxlvy4NOyyA==',
-          	'AcctId': 'GVb1w0skuUKO+FfzgvG+JA==',
-          	'Stages': [
-            		{
-            			'id': 1,
-            			'action': 'Import',
-            			'isStart': true,
-            			'prevStage': null,
-            			'nextStage': 2,
-            		},
-            		{
-            			'id': 2,
-            			'action': 'Sort',
-            			'isStart': false,
-            			'prevStage': 1,
-            			'nextStage': 3,
-            		},
-            		{
-            			'id': 3,
-            			'action': 'Extract',
-            			'isStart': false,
-            			'prevStage': 2,
-            			'nextStage': null,
-            		},
-            		{
-            			'id': 4,
-            			'action': 'Export',
-            			'isStart': false,
-            			'prevStage': null,
-            			'nextStage': null,
-            		}
-	          ]
+            'ProjectId': 'bOd74o7fEeeqxlvy4NOyyA==',
+            'AcctId': 'GVb1w0skuUKO+FfzgvG+JA==',
+            'Stages': [
+              {
+                'id': 1,
+                'action': 'Import',
+                'isStart': true,
+                'prevStage': null,
+                'nextStage': 2,
+              },
+              {
+                'id': 2,
+                'action': 'Sort',
+                'isStart': false,
+                'prevStage': 1,
+                'nextStage': 3,
+              },
+              {
+                'id': 3,
+                'action': 'Extract',
+                'isStart': false,
+                'prevStage': 2,
+                'nextStage': null,
+              },
+              {
+                'id': 4,
+                'action': 'Export',
+                'isStart': false,
+                'prevStage': null,
+                'nextStage': null,
+              }
+            ]
           }
-
         }
   }
 
@@ -62,8 +59,8 @@ class App extends Component {
           <button>Setup Workflow</button>
         </nav>
         <main>
-          <Workflow />
-          <ActionsList />
+          <Workflow workflow={this.state.workflow}/>
+          <ActionsList actions={this.state.actions}/>
         </main>
         <div id='controller-container'>
           <button>Save</button>
