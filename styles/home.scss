@@ -9,7 +9,7 @@ html,body {
   background-color: tomato;
   flex-direction: column;
 
-  #actions-list, #workflow {
+  #actions-container, #workflow-container {
     display: flex;
     width: 45%;
     height: 100%;
@@ -17,10 +17,12 @@ html,body {
 
   #actions-list{
     background-color: olive;
+    width: 100%;
   }
 
   #workflow {
     background-color: cornflowerblue;
+    width: 100%;
   }
 
   #controller-container {
