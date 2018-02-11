@@ -1,48 +1,54 @@
 import React, {Component} from 'react';
 import {DropTarget} from 'react-dnd'
-import update from 'react-addons-update'
+import update from 'react/lib/update'
+import WorkflowAction from './WorkflowAction.jsx'
 
+//once actionList is set up, add action type here and a method to mutate
+//dropped actions into workflowActions
 const Types = {
   WORKFLOW: 'workflow'
 }
 
+//react dnd methods above Workflow definiton
+
 const workflowTarget = {
   drop(props, monitor, component) {
-    if (monitor.didDrop()) {
-      //do this thing
-      return
-    }
-    const item = monitor.getItem()
-    //this is where the do the state update
+    const { id } = props;
+    const sourceObj = monitor.getItem();
+    if ( id !== sourceObj.listId ) component.pushWorkflowAction(sourceObj.workflowAction);
+    return {
+      listId: id
+    };
   }
 }
 
-function collect(connect, monitor) {
-  return {
-    //call this function inside render(
-    //to let react-dnd handle the drag events
-    connectDropTarget: connect.dropTarget(),
-    itemType: monitor.getItemType()
-  }
-}
+//implemented in the export rn, but maybe extract it later?
+// function collect(connect, monitor) {
+//   return {
+//     //call this function inside render(
+//     //to let react-dnd handle the drag events
+//     connectDropTarget: connect.dropTarget(),
+//     itemType: monitor.getItemType()
+//   }
+// }
 
 class Workflow extends Component {
   constructor(props) {
 		super(props);
-		this.state = { cards: props.list };
+		this.state = { workflow: props.workflow };
 	}
 
-	pushCard(card) {
+	pushWorkflowAction(workflowAction) {
 		this.setState(update(this.state, {
-			cards: {
-				$push: [ card ]
+			workflow: {
+				$push: [ workflowAction ]
 			}
 		}));
 	}
 
-	removeCard(index) {
+	removeWorkflowAction(index) {
 		this.setState(update(this.state, {
-			cards: {
+			workflow: {
 				$splice: [
 					[index, 1]
 				]
@@ -50,30 +56,48 @@ class Workflow extends Component {
 		}));
 	}
 
-	moveCard(dragIndex, hoverIndex) {
-		const { cards } = this.state;
-		const dragCard = cards[dragIndex];
+	moveWorkflowAction(dragIndex, hoverIndex) {
+		const { workflow } = this.state;
+		const dragWorkflowAction = workflow[dragIndex];
 
 		this.setState(update(this.state, {
-			cards: {
+			workflow: {
 				$splice: [
 					[dragIndex, 1],
-					[hoverIndex, 0, dragCard]
+					[hoverIndex, 0, dragWorkflowAction]
 				]
 			}
 		}));
 	}
 
   render() {
-    
+    const { workflow } = this.state;
+		const { canDrop, isOver, connectDropTarget } = this.props;
+		const isActive = canDrop && isOver;
 
+		// const backgroundColor = isActive ? 'lightgreen' : '#FFF';
 
-    return (
-      <div id="workflow">
-        {this.props.children}
-      </div>
-    );
+		return connectDropTarget(
+			<div id='workflow'>
+				{workflow.map((action) => {
+					return (
+						<WorkflowAction
+							key={action.id}
+							index={action.id}
+							listId={this.props.id}
+							actionName={action.action}
+							removeWorkflowAction={this.removeWorkflowAction.bind(this)}
+							moveWorkflowAction={this.moveWorkflowAction.bind(this)} />
+					);
+				})}
+			</div>
+		);
   }
+
 }
 
-export default DropTarget(Types.WORKFLOW, workflowTarget, collect)(Workflow);
+export default DropTarget(Types.WORKFLOW, workflowTarget, (connect, monitor) => ({
+	connectDropTarget: connect.dropTarget(),
+	isOver: monitor.isOver(),
+	canDrop: monitor.canDrop()
+}))(Workflow);
