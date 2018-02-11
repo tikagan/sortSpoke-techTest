@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import WorkflowContainer from './WorkflowContainer.jsx'
+import Workflow from './Workflow.jsx'
 import ActionsList from './ActionsList.jsx'
 
 class App extends Component {
@@ -61,8 +61,8 @@ class App extends Component {
           <button>Setup Workflow</button>
         </nav>
         <main>
-          <WorkflowContainer workflow={this.state.workflow}/>
-          <ActionsList actions={this.state.actions}/>
+          <Workflow workflow={this.state.workflow['Stages']} id='workflow'/>
+          <ActionsList actions={this.state.actions} id='actions-list'/>
         </main>
         <div id='controller-container'>
           <button>Save</button>
