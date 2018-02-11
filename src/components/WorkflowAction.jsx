@@ -37,15 +37,15 @@ import {DragSource} from 'react-dnd'
   }
 
   class WorkflowAction extends Component {
+    render() {
+      const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
+      const opacity = isDragging ? 0 : 1;
 
-
-
-  render() {
-    return (
-      <div className="workflow-action">
-        <h3>{this.props.actionName}</h3>
-      </div>
-    );
-  }
-}
+        return connectDragSource(connectDropTarget(
+          <div className="workflow-action">
+            <h3>{this.props.actionName}</h3>
+          </div>
+        ))
+      }
+    }
 export default DragSource (Types.WORKFLOW_ACTION, workflowSource, collect)(WorkflowAction);
