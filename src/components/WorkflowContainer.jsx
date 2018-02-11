@@ -4,9 +4,14 @@ import Workflow from './Workflow.jsx'
 
 class WorkflowContainer extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = { workflow: props.workflow };
+  }
+
   toRender = function () {
     const act = this.props.workflow['Stages'].map((action) =>
-      <WorkflowAction key={action['id']} actionName={action['action']} isStart={action['isStart']} prevStage={action['prevStage']} nextStage={action['nextStage']}> </WorkflowAction>
+        <WorkflowAction key={action['id']} actionName={action['action']} isStart={action['isStart']} prevStage={action['prevStage']} nextStage={action['nextStage']}> </WorkflowAction>
     )
     return (
       <Workflow>{act}</Workflow>
