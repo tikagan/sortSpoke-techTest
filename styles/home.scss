@@ -9,7 +9,7 @@ html,body {
   background-color: tomato;
   flex-direction: column;
 
-  #actions-container, #workflow-container {
+  #actions-container {
     display: flex;
     width: 45%;
     height: 100%;
@@ -22,7 +22,7 @@ html,body {
 
   #workflow {
     background-color: cornflowerblue;
-    width: 100%;
+    width: 45%;
   }
 
   #controller-container {
@@ -47,7 +47,7 @@ html,body {
     justify-content: space-around;
   }
 
-  .workflow-action {
+  .workflow-action, .action {
     border: 1px solid yellow;
   }
 
