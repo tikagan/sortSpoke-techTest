@@ -79,11 +79,11 @@ class Workflow extends Component {
 
 		return connectDropTarget(
 			<div id='workflow'>
-				{workflow.map((action) => {
+				{workflow.map((action, i) => {
 					return (
 						<WorkflowAction
 							key={action.id}
-							index={action.id}
+							index={i}
 							listId={this.props.id}
 							actionName={action.action}
 							removeWorkflowAction={this.removeWorkflowAction.bind(this)}

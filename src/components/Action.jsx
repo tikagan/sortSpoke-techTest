@@ -1,6 +1,20 @@
 import React, {Component} from 'react';
 import {DragSource} from 'react-dnd'
 
+const Types = {
+  ACTION: 'action'
+}
+
+const actionSource = {
+
+  beginDrag(props) {
+    return {
+      listId: props.listId,
+      action: props.actionName
+    };
+  },
+}
+
 class Action extends Component {
   constructor(props) {
       super(props)
@@ -14,4 +28,7 @@ class Action extends Component {
     );
   }
 }
-export default Action;
+export default DragSource(Types.ACTION, actionSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))(Action)

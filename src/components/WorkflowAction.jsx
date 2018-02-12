@@ -5,14 +5,15 @@ import {DragSource} from 'react-dnd'
 import flow from 'lodash/flow'
 
 const Types = {
-  WORKFLOW: 'workflow'
+  WORKFLOW: 'workflow',
+  ACTION: 'action'
 }
 
 const workflowActionSource = {
 
   beginDrag(props) {
     return {
-      index: props.id,
+      index: props.index,
       listId: props.listId,
       workflowAction: props.action
     };
